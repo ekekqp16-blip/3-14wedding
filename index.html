@@ -1,334 +1,496 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>김강산 & 박주연 결혼합니다</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Serif+KR:wght@300;600&display=swap" rel="stylesheet">
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>김강산 & 박주연 결혼합니다</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Serif+KR:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    /* 초기화 및 기본 설정 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        
-.gallery-img {
-    opacity: 0;
-    transform: translateY(40px); /* 이동 거리도 살짝 늘리면 더 극적입니다 */
-    transition: all 1.5s ease-out; /* 1.5초 동안 천천히 실행 */
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+    body {
+      background-color: #ffffff;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #0d000f;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+    }
 
-/* 스크롤 시 나타날 클래스 */
-.gallery-img.reveal {
-    opacity: 1;
-    transform: translateY(0);
-}
+    /* [본문 컨테이너] */
+    .container {
+      width: 100%;
+      max-width: 480px;
+      background-color: rgba(248, 247, 247, 0.30);
+      box-shadow: 0 0 30px rgba(0,0,0,0.30);
+      padding-bottom: 50px;
+      position: relative;
+    }
 
-        /* 초기화 및 기본 설정 */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-       body {
-    /* 기존: background-color: transparent; */
-    background-color: #ffffff; /* 원하는 색상 코드로 변경 */
-    font-family: 'Noto Sans KR', sans-serif;
-    color: #0d000f;
-    line-height: 1.6;
-    display: flex;
-    justify-content: center;
-}
+    /* [음악 버튼 스타일] */
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: 1px solid #eee;
+      font-size: 24px;
+      animation: rotateDisk 3s linear infinite;
+      animation-play-state: paused;
+    }
+    .music-on {
+      background-color: #E89F9F;
+      color: white;
+      animation-play-state: running;
+    }
+    @keyframes rotateDisk {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
+    section { padding: 40px 20px; text-align: center; }
+    .header { padding-top: 60px; padding-bottom: 40px; }
+    .date-text { color: #E89F9F; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; font-size: 14px; }
+    .names { font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 600; margin-bottom: 30px; color: #2c2c2c; }
+    .names span { font-size: 18px; color: #888; font-weight: 300; margin: 0 5px; }
 
-        /* [본문 컨테이너] - 투명도 0.75 적용 */
-        .container {
-            width: 100%;
-            max-width: 480px;
-            /* 배경 투명도 조절 (0.30 = 75% 불투명) */
-            background-color: rgba(248, 247, 247, 0.30);
-            box-shadow: 0 0 30px rgba(0,0,0,0.30);
-            padding-bottom: 50px;
-            position: relative;
-        }
+    .main-photo-frame {
+      width: 100%;
+      height: auto;
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background-color: #fff;
+    }
+    .main-photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* [음악 버튼 스타일] */
-        .music-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            border: 1px solid #eee;
-            font-size: 24px;
-            animation: rotateDisk 3s linear infinite;
-            animation-play-state: paused; /* 처음엔 멈춤 */
-        }
-        .music-on {
-            background-color: #E89F9F; /* 켜지면 핑크색 */
-            color: white;
-            animation-play-state: running; /* 켜지면 빙글빙글 */
-        }
-        @keyframes rotateDisk {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+    .invitation { background-color: rgba(253, 251, 247, 0.6); }
+    .invitation-title { font-family: 'Noto Serif KR', serif; color: #E89F9F; font-size: 18px; margin-bottom: 20px; }
+    .invitation p { font-size: 15px; color: #555; margin-bottom: 10px; }
 
-        section { padding: 40px 20px; text-align: center; }
-        .header { padding-top: 60px; padding-bottom: 40px; }
-        .date-text { color: #E89F9F; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; font-size: 14px; }
-        .names { font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 600; margin-bottom: 30px; color: #2c2c2c; }
-        .names span { font-size: 18px; color: #888; font-weight: 300; margin: 0 5px; }
-        
-        .main-photo-frame {
-            width: 100%; height: auto; border-radius: 100px 100px 100px 100px;
-            overflow: hidden; margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); background-color: #fff;
-        }
-        .main-photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* ===== 갤러리: 2열 + 클릭 확대(라이트박스) ===== */
+    .gallery { background-color: transparent; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
 
-        .invitation { background-color: rgba(253, 251, 247, 0.6); }
-        .invitation-title { font-family: 'Noto Serif KR', serif; color: #E89F9F; font-size: 18px; margin-bottom: 20px; }
-        .invitation p { font-size: 15px; color: #555; margin-bottom: 10px; }
+    /* 스크롤 애니메이션 + 썸네일 스타일 */
+    .gallery-img {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1.5s ease-out;
+      width: 100%;
+      aspect-ratio: 1 / 1;     /* 2열에서도 예쁘게 */
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .gallery-img.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .gallery { background-color: transparent; }
-        .gallery-grid { display: flex; flex-direction: column; gap: 15px; }
-        img:nth-child(n+3):nth-child(-n+6) {
-  height: 550px;          /* 원하는 높이 */
-  object-fit: cover;
-}
-        .gallery-img { width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .info { background-color: transparent; border-top: 1px dashed #eee; }
-        .info-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: #444; }
-        .info-details { font-size: 16px; margin-bottom: 30px; }
-        .info-details strong { display: block; font-size: 20px; color: #E89F9F; margin-bottom: 5px; }
-        .map-area { background-color: #eee; height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #777; font-size: 14px; overflow: hidden; }
-        
-        .btn { display: inline-block; padding: 12px 30px; background-color: #E89F9F; color: white; text-decoration: none; border-radius: 30px; font-size: 15px; transition: background 0.3s; }
-        .btn:hover { background-color: #d68f8f; }
-        footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; background-color: transparent; }
+    /* 라이트박스(모달) */
+    .lightbox{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.show{ display: flex; }
+    .lightbox img{
+      max-width: 92vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .lightbox-close{
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 40px;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+    }
 
-        .account-section { background-color: rgba(253, 251, 247, 0.6); padding: 40px 20px; text-align: center; border-top: 1px solid #eee; }
-        .accordion { background-color: rgba(255, 255, 255, 0.9); color: #444; cursor: pointer; padding: 18px; width: 100%; border: 1px solid #eee; text-align: left; outline: none; font-size: 16px; transition: 0.3s; border-radius: 10px; margin-bottom: 10px; font-family: 'Noto Sans KR', sans-serif; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
-        .active, .accordion:hover { background-color: #fff0f0; border-color: #E89F9F; }
-        .panel { padding: 0 18px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; border-radius: 0 0 10px 10px; margin-top: -15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .account-box { padding: 15px 5px; border-bottom: 1px solid #eee; font-size: 14px; color: #555; display: flex; justify-content: space-between; align-items: center; }
-        .account-box:last-child { border-bottom: none; }
-        .copy-btn { background-color: #f0f0f0; border: 1px solid #ddd; padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; color: #333; }
-        .copy-btn:hover { background-color: #e0e0e0; }
-    </style>
+    .info { background-color: transparent; border-top: 1px dashed #eee; }
+    .info-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: #444; }
+    .info-details { font-size: 16px; margin-bottom: 30px; }
+    .info-details strong { display: block; font-size: 20px; color: #E89F9F; margin-bottom: 5px; }
+    .map-area {
+      background-color: #eee;
+      height: 200px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: #777;
+      font-size: 14px;
+      overflow: hidden;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #E89F9F;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+    .btn:hover { background-color: #d68f8f; }
+
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; background-color: transparent; }
+
+    .account-section { background-color: rgba(253, 251, 247, 0.6); padding: 40px 20px; text-align: center; border-top: 1px solid #eee; }
+    .accordion {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: 1px solid #eee;
+      text-align: left;
+      outline: none;
+      font-size: 16px;
+      transition: 0.3s;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .active, .accordion:hover { background-color: #fff0f0; border-color: #E89F9F; }
+    .panel {
+      padding: 0 18px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      border-radius: 0 0 10px 10px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .account-box {
+      padding: 15px 5px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .account-box:last-child { border-bottom: none; }
+    .copy-btn {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #333;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { background-color: #e0e0e0; }
+  </style>
 </head>
 <body>
 
-    <audio id="bgm" loop>
-        <source src="merryme.mp3" type="audio/mp3">
-    </audio>
+  <audio id="bgm" loop>
+    <source src="merryme.mp3" type="audio/mp3">
+  </audio>
 
-    <div class="music-btn" onclick="toggleMusic()">
-        🎵
-    </div>
+  <div class="music-btn" onclick="toggleMusic()">🎵</div>
 
+  <div class="container">
 
-    <div class="container">
+    <!-- 상단 -->
+    <section class="header">
+      <p class="date-text">2026. 03. 14. PM: 16:00 / SATURDAY</p>
+      <h1 class="names">김강산 <span>&</span> 박주연</h1>
+      <div class="main-photo-frame">
+        <img src="3.jpg" alt="메인 사진">
+      </div>
+      <p style="font-size: 16px; color: #666;">
+        저희 두 사람, 사랑으로 하나 되는 날<br>
+        소중한 분들을 모십니다.
+      </p>
+    </section>
+
+    <!-- 초대합니다 -->
+    <section class="invitation">
+      <h2 class="invitation-title">초대합니다</h2>
+      <p>서로가 서로의 쉼터가 되어</p>
+      <p>같은 곳을 바라보며 걷겠습니다.</p>
+      <p>저희의 시작을 축복해 주시면</p>
+      <p>더없는 기쁨으로 간직하겠습니다.</p>
+      <br>
+
+      <!-- ✅ '의'는 붙여쓰기 -->
+      <p><strong>김선규 · 故 최미경</strong>의 아들 <strong>김강산</strong></p>
+      <p><strong>박명식 · 주정미</strong>의 장녀 <strong>박주연</strong></p>
+    </section>
+
+    <!-- 갤러리 (2열, 10장) -->
+    <section class="gallery">
+      <h3 style="margin-bottom: 20px; font-weight: 400; color:#888;">GALLERY</h3>
+      <div class="gallery-grid">
+        <!-- 원하는대로 10장 넣기 (파일명만 바꾸면 됨) -->
+        <img src="1.jpg"  onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 1">
+        <img src="2.jpg"  onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 2">
+        <img src="4.jpg"  onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 3">
+        <img src="5.jpg"  onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 4">
+        <img src="6.jpg"  onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 5">
+        <img src="7.jpg"  onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 6">
+        <img src="8.jpg"  onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 7">
+        <img src="12.jpg"  onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 8">
+        <img src="13.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 9">
+        <img src="14.jpg" onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 10">
+        <img src="15.jpg" onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 10">
+        <img src="16.jpg" onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 10">
         
-        <section class="header">
-            <p class="date-text">2026. 03. 14. PM: 16:00 / SATURDAY</p>
-            <h1 class="names">김강산 <span>&</span> 박주연</h1>
-            <div class="main-photo-frame">
-                <img src="3.jpg" >
-            </div>
-            <p style="font-size: 16px; color: #666;">저희 두 사람, 사랑으로 하나 되는 날<br>소중한 분들을 모십니다.</p>
-        </section>
+      </div>
+    </section>
 
-        <section class="invitation">
-            <h2 class="invitation-title">초대합니다</h2>
-            <p>서로가 서로의 쉼터가 되어</p>
-            <p>같은 곳을 바라보며 걷겠습니다.</p>
-            <p>저희의 시작을 축복해 주시면</p>
-            <p>더없는 기쁨으로 간직하겠습니다.</p>
-            <br>
-            <p><strong>김강산 · 박주연</strong> 드림</p>
-        </section>
+    <!-- D-day + 오시는 길 -->
+    <section class="header" style="padding-top: 20px; padding-bottom: 10px;">
+      <p class="date-text">2026. 03. 14. PM: 16:00 / SATURDAY</p>
 
-        <section class="gallery">
-            <h3 style="margin-bottom: 20px; font-weight: 400; color:#888;">GALLERY</h3>
-            <div class="gallery-grid">
-                <img src="1.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 1">
-                <img src="5.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 6">
+      <div id="d-day-tag" style="
+        background-color:#E89F9F; color:white; padding:5px 15px; border-radius:15px;
+        font-size:14px; display:inline-block; margin-bottom:15px; font-weight:bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      "></div>
 
-                <img src="2.jpg" onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 4">
-                 <img src="8.jpg" onerror="this.src='https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=1000&auto=format&fit=crop'" class="gallery-img" alt="웨딩사진 5">
-            </div>
-        </section>
-<section class="header">
-            <p class="date-text">2026. 03. 14. PM: 16:00/ SATURDAY</p>
-            
-            <div id="d-day-tag" style="background-color:#E89F9F; color:white; padding:5px 15px; border-radius:15px; font-size:14px; display:inline-block; margin-bottom:15px; font-weight:bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                </div>
+      <h1 class="names" style="margin-bottom: 10px;">김강산 <span>&</span> 박주연</h1>
+    </section>
 
-            <h1 class="names">
-                김강산 <span>&</span> 박주연
-            </h1>
-        
-        <section class="info">
-            
-            <div class="info-details">
-        
-                <div class="info-title" style="margin-bottom:10px;">오시는 길</div>
-                <span style="font-size: 18px; font-weight: bold; color: #333;">제이오스티엘</span>
-            </div>
-            <p style="font-size: 15px; color: #333; margin-top: 5px; margin-bottom: 15px;">
-            서울특별시 구로구 경인로 565 (구로동 604-19)<br>
-            <span style="font-size: 15px; color: #333;">단독홀 2층</span>
-        </p>
-            <div class="map-area">
-                <img src="map.jpg" style="width:100%; height:100%; object-fit:cover;" alt="오시는 길 약도">
-            </div>
-            <a href="https://map.naver.com/p/entry/place/13358566?lng=126.8797661&lat=37.5037642&placePath=%2F&entry=pll&searchType=place&c=15.00,0,0,0,dh" target="_blank" class="btn">네이버 지도 보기</a>
-        </section>
+    <section class="info">
+      <div class="info-details">
+        <div class="info-title" style="margin-bottom:10px;">오시는 길</div>
+        <span style="font-size: 18px; font-weight: bold; color: #333;">제이오스티엘</span>
+      </div>
 
-        <section class="account-section">
-            <h2 class="invitation-title">마음 전하실 곳</h2>
-            <p style="margin-bottom:25px; font-size:14px; color:#666;">
-                참석이 어려우신 분들을 위해<br>계좌번호를 안내해 드립니다.
-            </p>
-            <button class="accordion">신랑측 마음 전하실 곳 <span style="font-size:12px">▼</span></button>
-            <div class="panel">
-                <div class="account-box">
-                    <div style="text-align: left;">
-                        <span style="font-size:12px; color:#888;">신랑 김강산</span><br>
-                        <strong>신한은행</strong> 110-450-926667
-                    </div>
-                    <button class="copy-btn" onclick="copy('110-450-926667')">복사</button>
-                </div>
-            </div>
-            <button class="accordion">신부측 마음 전하실 곳 <span style="font-size:12px">▼</span></button>
-            <div class="panel">
-                <div class="account-box">
-                    <div style="text-align: left;">
-                        <span style="font-size:12px; color:#888;">신부 박주연</span><br>
-                        <strong>농협은행</strong> 356-1260-9172-53
-                    </div>
-                    <button class="copy-btn" onclick="copy('356-1260-9172-53')">복사</button>
-                </div>
-            </div>
-        </section>
+      <p style="font-size: 15px; color: #333; margin-top: 5px; margin-bottom: 15px;">
+        서울특별시 구로구 경인로 565 (구로동 604-19)<br>
+        <span style="font-size: 15px; color: #333;">단독홀 2층</span>
+      </p>
 
-        <footer>
-            Copyright © 2026 kangsan & Juyeon<br>All rights reserved.
-        </footer>
-    </div>
+      <div class="map-area">
+        <img src="map.jpg" style="width:100%; height:100%; object-fit:cover;" alt="오시는 길 약도">
+      </div>
 
-   <script>
-        // 1. 음악 켜기/끄기 기능
-        var musicBtn = document.querySelector('.music-btn');
-        var bgm = document.getElementById('bgm');
-        var isPlaying = false;
+      <a href="https://map.naver.com/p/entry/place/13358566?lng=126.8797661&lat=37.5037642&placePath=%2F&entry=pll&searchType=place&c=15.00,0,0,0,dh"
+         target="_blank" class="btn" rel="noopener noreferrer">네이버 지도 보기</a>
+    </section>
 
-        function toggleMusic() {
-            if (isPlaying) {
-                bgm.pause();
-                musicBtn.classList.remove('music-on');
-            } else {
-                bgm.play();
-                musicBtn.classList.add('music-on');
-            }
-            isPlaying = !isPlaying;
+    <!-- 계좌 -->
+    <section class="account-section">
+      <h2 class="invitation-title">마음 전하실 곳</h2>
+      <p style="margin-bottom:25px; font-size:14px; color:#666;">
+        참석이 어려우신 분들을 위해<br>계좌번호를 안내해 드립니다.
+      </p>
+
+      <button class="accordion">신랑측 마음 전하실 곳 <span style="font-size:12px">▼</span></button>
+      <div class="panel">
+        <div class="account-box">
+          <div style="text-align: left;">
+            <span style="font-size:12px; color:#888;">신랑 김강산</span><br>
+            <strong>신한은행</strong> 110-450-926667
+          </div>
+          <button class="copy-btn" onclick="copy('110-450-926667')">복사</button>
+        </div>
+      </div>
+
+      <button class="accordion">신부측 마음 전하실 곳 <span style="font-size:12px">▼</span></button>
+      <div class="panel">
+        <div class="account-box">
+          <div style="text-align: left;">
+            <span style="font-size:12px; color:#888;">신부 박주연</span><br>
+            <strong>농협은행</strong> 356-1260-9172-53
+          </div>
+          <button class="copy-btn" onclick="copy('356-1260-9172-53')">복사</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Copyright © 2026 kangsan & Juyeon<br>
+      All rights reserved.
+    </footer>
+  </div>
+
+  <!-- 라이트박스 (클릭 시 확대) -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <span class="lightbox-close" id="lightboxClose">×</span>
+    <img id="lightboxImg" alt="확대 이미지">
+  </div>
+
+  <script>
+    // =========================
+    // 1. 음악 켜기/끄기 기능
+    // =========================
+    var musicBtn = document.querySelector('.music-btn');
+    var bgm = document.getElementById('bgm');
+    var isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        bgm.pause();
+        musicBtn.classList.remove('music-on');
+      } else {
+        bgm.play();
+        musicBtn.classList.add('music-on');
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // =========================
+    // 2. 아코디언 (접기/펴기)
+    // =========================
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
         }
+      });
+    }
 
-        // 2. 아코디언 (접기/펴기)
-        var acc = document.getElementsByClassName("accordion");
-        for (var i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                } else {
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                } 
-            });
-        }
-
-        // 3. 계좌번호 복사
-        function copy(text) {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(function() {
-                    alert("계좌번호가 복사되었습니다 🌸");
-                }, function(err) {
-                    fallbackCopyTextToClipboard(text);
-                });
-            } else {
-                fallbackCopyTextToClipboard(text);
-            }
-        }
-        function fallbackCopyTextToClipboard(text) {
-            var textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                var successful = document.execCommand('copy');
-                if(successful) alert("계좌번호가 복사되었습니다 🌸");
-                else alert("복사에 실패했습니다.");
-            } catch (err) {
-                alert("이 브라우저에서는 복사 기능을 지원하지 않습니다.");
-            }
-            document.body.removeChild(textArea);
-        }
-
-        // ==========================================
-        // [수정됨] 4. 실시간 D-Day 카운트다운 (초 단위 포함)
-        // ==========================================
-        var countDownDate = new Date("March 14, 2026 16:00:00").getTime();
-
-        var x = setInterval(function() {
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
-
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            var tag = document.getElementById("d-day-tag");
-            
-            if (distance < 0) {
-                // 결혼식 시간이 지났을 때
-                clearInterval(x);
-                tag.innerHTML = "행복하게 잘 살겠습니다 ❤️";
-            } else {
-                // 결혼식 전일 때 (실시간 갱신)
-                tag.innerHTML = "결혼식까지 " + days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초";
-            }
-        }, 1000); // 1초마다 갱신
-
-document.addEventListener("DOMContentLoaded", function() {
-    const observerOptions = {
-        threshold: 0.1 // 이미지가 10%만 보여도 작동 시작
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                // 화면에 들어왔을 때 나타남
-                entry.target.classList.add('reveal');
-            } else {
-                // 화면에서 나갔을 때 다시 숨김 (불투명해짐)
-                entry.target.classList.remove('reveal');
-            }
+    // =========================
+    // 3. 계좌번호 복사
+    // =========================
+    function copy(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          alert("계좌번호가 복사되었습니다 🌸");
+        }, function() {
+          fallbackCopyTextToClipboard(text);
         });
-    }, observerOptions);
+      } else {
+        fallbackCopyTextToClipboard(text);
+      }
+    }
 
-    const images = document.querySelectorAll('.gallery-img');
-    images.forEach((img) => observer.observe(img));
-});
-    </script>
+    function fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        var successful = document.execCommand('copy');
+        if (successful) alert("계좌번호가 복사되었습니다 🌸");
+        else alert("복사에 실패했습니다.");
+      } catch (err) {
+        alert("이 브라우저에서는 복사 기능을 지원하지 않습니다.");
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // ==========================================
+    // 4. 실시간 D-Day 카운트다운 (초 단위 포함)
+    // ==========================================
+    var countDownDate = new Date("March 14, 2026 16:00:00").getTime();
+    var x = setInterval(function() {
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      var tag = document.getElementById("d-day-tag");
+      if (!tag) return;
+
+      if (distance < 0) {
+        clearInterval(x);
+        tag.innerHTML = "행복하게 잘 살겠습니다 ❤️";
+      } else {
+        tag.innerHTML = "결혼식까지 " + days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초";
+      }
+    }, 1000);
+
+    // ==========================================
+    // DOMContentLoaded 초기화
+    // (스크롤 reveal + 라이트박스)
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // 5. 스크롤 시 갤러리 이미지 등장/사라짐
+      const observerOptions = { threshold: 0.1 };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('reveal');
+          else entry.target.classList.remove('reveal');
+        });
+      }, observerOptions);
+
+      const images = document.querySelectorAll('.gallery-img');
+      images.forEach((img) => observer.observe(img));
+
+      // 6. 라이트박스(클릭 확대)
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightboxImg");
+      const lightboxClose = document.getElementById("lightboxClose");
+
+      function closeLightbox() {
+        lightbox.classList.remove("show");
+        lightboxImg.src = "";
+        document.body.style.overflow = "";
+      }
+
+      images.forEach((img) => {
+        img.addEventListener("click", () => {
+          lightboxImg.src = img.src;
+          lightbox.classList.add("show");
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      lightboxClose.addEventListener("click", closeLightbox);
+
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
+      });
+    });
+  </script>
 </body>
 </html>
